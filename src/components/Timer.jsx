@@ -58,7 +58,7 @@ function Timer({ darkMode }) {
                     : "bg-green-600 cursor-none "
                 }`
               : "cursor-pointer"
-          } hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-green-300 px-4 ml-3 py-1 rounded border-1 border-black-900`}
+          } hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-green-300 px-4 ml-2 m-1 py-1 rounded border-1 border-black-900`}
         >
           ▶️ Start
         </button>
@@ -75,7 +75,7 @@ function Timer({ darkMode }) {
                     : "bg-orange-600 cursor-none "
                 }`
               : "cursor-pointer"
-          } hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-orange-300 px-4 ml-3 py-1 rounded border-1 border-black-900`}
+          } hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-orange-300 px-4 ml-2 m-1 py-1 rounded border-1 border-black-900`}
         >
           ⏯️ Pause
         </button>
@@ -86,7 +86,7 @@ function Timer({ darkMode }) {
           }}
           className={` ${darkMode ? `text-[whitesmoke]` : `text-[black]`} ${
             isRunning ? "cursor-pointer" : "cursor-none"
-          } px-4 py-1 ml-3 rounded border-1 border-black-900  hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-red-300 `}
+          } px-4 py-1 ml-2 m-1 rounded border-1 border-black-900  hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-red-300 `}
         >
           🔁 Reset
         </button>
