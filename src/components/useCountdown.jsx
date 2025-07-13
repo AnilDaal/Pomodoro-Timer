@@ -27,7 +27,7 @@ function reducer(state, action) {
     case "pause":
       return {
         ...state,
-        isRunning: !state.isRunning,
+        isRunning: false,
       };
 
     case "reset":
