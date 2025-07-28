@@ -3,11 +3,14 @@
 /* Custom styles for the app */
 body {
   margin: 0;
-  font-family: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apply Inter font to all elements */
+* {
+  font-family: 'Inter', sans-serif;
 }
 
 /* Add padding to account for fixed navbar */

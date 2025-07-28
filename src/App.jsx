@@ -13,7 +13,7 @@ function App() {
     <div>
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <div
-        className={`min-h-screen flex flex-col items-center justify-center font-mono ${
+        className={`min-h-screen flex flex-col items-center justify-center font-['Inter'] ${
           darkMode ? `bg-gray-800` : `bg-gray-100`
         } p-4`}
       >

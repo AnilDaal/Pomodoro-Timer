@@ -13,14 +13,14 @@ export const Navbar = function ({ darkMode, toggleDarkMode }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsActive((prev) => !prev);
-    }, 3000); // Toggle every 5 seconds for demo
+    }, 5000); // Toggle every 5 seconds for demo
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <nav
-      className={`fixed w-full top-0 z-100 ${darkMode ? "bg-gradient-to-r from-purple-900 to-blue-900" : "bg-gradient-to-r from-purple-100 to-blue-100"} shadow-md transition-all duration-300`}
+      className={`fixed w-full top-0 z-50 ${darkMode ? "bg-gradient-to-r from-purple-900 to-blue-900" : "bg-gradient-to-r from-purple-100 to-blue-100"} shadow-md transition-all duration-300`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -44,7 +44,7 @@ export const Navbar = function ({ darkMode, toggleDarkMode }) {
           </div>
 
           {/* Right side items */}
-          <div className=" md:flex items-center space-x-5">
+          <div className="hidden md:flex items-center space-x-6">
             {/* Pomodoro Status Icon */}
             <div
               className={`relative ${isActive ? (darkMode ? "text-red-400" : "text-red-500") : darkMode ? "text-gray-400" : "text-gray-500"} transition-colors duration-300`}
