@@ -1,4 +1,5 @@
 import { useReducer, useEffect } from "react";
+
 function reducer(state, action) {
   switch (action.type) {
     case "start":
@@ -7,21 +8,22 @@ function reducer(state, action) {
         isRunning: true,
       };
 
+    case "session":
+      return {
+        ...state,
+        session: action.payload || state.session + 1,
+      };
+
     case "changeMode":
       return {
         ...state,
-        mode: state.mode === "work" ? "break" : "work",
+        mode: action.payload.mode,
+        timer: action.payload.time,
       };
     case "countdown":
       return {
         ...state,
         timer: state.timer - 1,
-      };
-
-    case "break":
-      return {
-        ...state,
-        timer: action.payload,
       };
 
     case "pause":
@@ -38,15 +40,16 @@ function reducer(state, action) {
       };
 
     default:
-      return new Error("Type not availble");
+      return { ...state };
   }
 }
 
 export function useCountdown(initialValue = 1500) {
-  const [{ mode, timer, isRunning }, dispatch] = useReducer(reducer, {
+  const [{ mode, timer, isRunning, session }, dispatch] = useReducer(reducer, {
     mode: "work",
-    timer: initialValue || 1,
+    timer: initialValue,
     isRunning: false,
+    session: 0,
   });
 
   useEffect(() => {
@@ -56,12 +59,20 @@ export function useCountdown(initialValue = 1500) {
         dispatch({ type: "countdown" });
       }, 1000);
     }
+
+    if (timer < 1) {
+      dispatch({ type: "session" });
+    }
+
     return () => clearInterval(time);
   }, [isRunning, timer]);
 
   useEffect(() => {
-    if (mode === "break") dispatch({ type: "break", payload: 300 });
-  }, [mode]);
+    if (session) localStorage.setItem("session", JSON.stringify(session));
+    const localSession = JSON.parse(localStorage.getItem("session"));
+    console.log(localSession);
+    dispatch({ type: "session", payload: localSession });
+  }, [session]);
 
   const start = () => {
     if (timer > 0) {
@@ -81,10 +92,20 @@ export function useCountdown(initialValue = 1500) {
     dispatch({ type: "break", payload: 300 });
   };
 
-  const changeMode = () => {
-    dispatch({ type: "changeMode" });
+  const changeMode = (mode, time) => {
+    dispatch({ type: "changeMode", payload: { mode, time } });
   };
-  return { breakTime, reset, pause, start, changeMode, mode, timer, isRunning };
+  return {
+    breakTime,
+    reset,
+    pause,
+    start,
+    changeMode,
+    mode,
+    timer,
+    isRunning,
+    session,
+  };
 }
 
 export default useCountdown;

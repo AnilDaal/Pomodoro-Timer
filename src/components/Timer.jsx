@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { act, useState } from "react";
 import useCountdown from "./useCountdown";
+import Button from "../ui/Button";
 
 function Timer({ darkMode }) {
-  const { relaxTime, reset, pause, start, changeMode, timer, mode } =
+  const { reset, pause, start, changeMode, timer, mode, session } =
     useCountdown();
-
+  const [active, setActive] = useState("Pomodoro");
   const [isRunning, setIsRunning] = useState(null);
 
   function formatTime(timer) {
@@ -19,28 +20,30 @@ function Timer({ darkMode }) {
   return (
     <>
       {" "}
-      <div className="">
-        <span
-          className={`${
-            darkMode ? `text-[whitesmoke]` : `text-[black]`
-          }  text-lg mb-2`}
-        >
-          Current Mode:
-        </span>
-        <span
-          onClick={() => changeMode()}
-          className={`${
-            darkMode ? `text-[#cd5b5b]` : `text-blue-600 `
-          } font-medium cursor-pointer`}
-        >
-          {" "}
-          {mode === "work" ? "Work" : "Break"}{" "}
-        </span>
+      <div className=" grid grid-cols-3">
+        <Button
+          name={"Pomodoro"}
+          active={active === "Pomodoro"}
+          setActive={() => setActive("Pomodoro")}
+          handleModeChange={() => changeMode("Pomodoro", 1500)}
+        />
+        <Button
+          name={"Short Break"}
+          active={active === "Short Break"}
+          setActive={() => setActive("Short Break")}
+          handleModeChange={() => changeMode("Short Break", 300)}
+        />
+        <Button
+          name={"Long Break"}
+          active={active === "Long Break"}
+          setActive={() => setActive("Long Break")}
+          handleModeChange={() => changeMode("Long Break", 600)}
+        />
       </div>
       <div
         className={`${
           darkMode ? `text-[whitesmoke]` : `text-[black]`
-        } text-[40px] font-[_Arial,_sans-serif] font-bold m-3`}
+        } text-[160px] font-[ButcountGridSingle-Black] font-bold m-3`}
       >
         {formatTime(timer)}
       </div>
@@ -54,11 +57,11 @@ function Timer({ darkMode }) {
             isRunning === "start"
               ? `${
                   !darkMode
-                    ? "bg-green-300 cursor-none "
-                    : "bg-green-600 cursor-none "
+                    ? "bg-green-300 cursor-pointer "
+                    : "bg-green-600 cursor-pointer "
                 }`
               : "cursor-pointer"
-          } hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-green-300 px-4 ml-3 py-1 rounded border-1 border-black-900`}
+          } hover:bg-green-400 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-green-300 px-4 ml-3 py-1 rounded border-1 border-black-900`}
         >
           ▶️ Start
         </button>
@@ -71,11 +74,11 @@ function Timer({ darkMode }) {
             isRunning === "pause"
               ? `${
                   !darkMode
-                    ? "bg-orange-300 cursor-none "
-                    : "bg-orange-600 cursor-none "
+                    ? "bg-orange-300 cursor-pointer "
+                    : "bg-orange-600 cursor-pointer "
                 }`
               : "cursor-pointer"
-          } hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-orange-300 px-4 ml-3 py-1 rounded border-1 border-black-900`}
+          } hover:bg-orange-400 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-orange-300 px-4 ml-3 py-1 rounded border-1 border-black-900`}
         >
           ⏯️ Pause
         </button>
@@ -84,13 +87,12 @@ function Timer({ darkMode }) {
             reset();
             setIsRunning(null);
           }}
-          className={` ${darkMode ? `text-[whitesmoke]` : `text-[black]`} ${
-            isRunning ? "cursor-pointer" : "cursor-none"
-          } px-4 py-1 ml-3 rounded border-1 border-black-900  hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-red-300 `}
+          className={` ${darkMode ? `text-[whitesmoke]` : `text-[black]`} cursor-pointer px-4 py-1 ml-3 rounded border-1 border-black-900  hover:bg-gray-300 hover:shadow-2xl hover:scale-[1.03] transition-all duration-300 active:bg-red-300 `}
         >
           🔁 Reset
         </button>
       </div>
+      <div className="m-3 font-bold text-[17px]">Session Count:{session}</div>
     </>
   );
 }
