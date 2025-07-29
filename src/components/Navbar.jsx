@@ -254,49 +254,89 @@ export const Navbar = function ({ darkMode, toggleDarkMode }) {
 
 // Desktop Navigation Link Component
 const NavLink = ({ text, active, darkMode }) => {
+  // Only Dashboard is active/implemented, others show tooltip
+  const showTooltip = text !== "Dashboard";
+
   return (
-    <a
-      href="#"
-      className={`relative px-1 py-2 text-sm font-medium ${
-        active
-          ? darkMode
-            ? "text-white"
-            : "text-gray-900"
-          : darkMode
-            ? "text-gray-300 hover:text-white"
-            : "text-gray-600 hover:text-gray-900"
-      } transition-colors duration-300 group`}
-    >
-      {text}
-      <span
-        className={`absolute bottom-0 left-0 w-full h-0.5 ${
+    <div className="relative group">
+      <a
+        href="#"
+        className={`relative px-1 py-2 text-sm font-medium ${
           active
             ? darkMode
-              ? "bg-blue-400"
-              : "bg-blue-600"
-            : "bg-transparent group-hover:bg-gray-300"
-        } transform origin-left transition-all duration-300 ease-out`}
-      ></span>
-    </a>
+              ? "text-white"
+              : "text-gray-900"
+            : darkMode
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-gray-900"
+        } transition-colors duration-300 group`}
+      >
+        {text}
+        <span
+          className={`absolute bottom-0 left-0 w-full h-0.5 ${
+            active
+              ? darkMode
+                ? "bg-blue-400"
+                : "bg-blue-600"
+              : "bg-transparent group-hover:bg-gray-300"
+          } transform origin-left transition-all duration-300 ease-out`}
+        ></span>
+      </a>
+
+      {/* Tooltip */}
+      {showTooltip && (
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-5 mb-1 w-28 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+          <div
+            className={`${darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"} text-[10px] rounded py-1 px-2 text-center shadow-lg`}
+          >
+            Coming Soon
+            <svg
+              className={`absolute h-2 w-2 left-1/2 -ml-1 top-full ${darkMode ? "text-gray-800" : "text-white"}`}
+              x="0px"
+              y="0px"
+              viewBox="0 0 255 255"
+              xmlSpace="preserve"
+            >
+              <polygon
+                className="fill-current"
+                points="0,0 127.5,127.5 255,0"
+              />
+            </svg>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
 // Mobile Navigation Link Component
 const MobileNavLink = ({ text, active, darkMode }) => {
+  // Only Dashboard is active/implemented, others show tooltip
+  const showTooltip = text !== "Dashboard";
+
   return (
-    <a
-      href="#"
-      className={`block px-3 py-2 rounded-md text-base font-medium ${
-        active
-          ? darkMode
-            ? "bg-gray-800 text-white"
-            : "bg-white text-gray-900"
-          : darkMode
-            ? "text-gray-300 hover:bg-gray-700 hover:text-white"
-            : "text-gray-600 hover:bg-gray-200 hover:text-gray-900"
-      } transition-colors duration-300`}
-    >
-      {text}
-    </a>
+    <div className="relative group">
+      <a
+        href="#"
+        className={`block px-3 py-2 rounded-md text-base font-medium ${
+          active
+            ? darkMode
+              ? "bg-gray-800 text-white"
+              : "bg-white text-gray-900"
+            : darkMode
+              ? "text-gray-300 hover:bg-gray-700 hover:text-white"
+              : "text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+        } transition-colors duration-300`}
+      >
+        {text}
+        {showTooltip && (
+          <span
+            className={`ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${darkMode ? "bg-gray-700 text-gray-200" : "bg-gray-200 text-gray-800"}`}
+          >
+            Coming Soon
+          </span>
+        )}
+      </a>
+    </div>
   );
 };

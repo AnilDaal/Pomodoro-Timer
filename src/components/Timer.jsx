@@ -43,7 +43,7 @@ function Timer({ darkMode }) {
       <div
         className={`${
           darkMode ? `text-[whitesmoke]` : `text-[black]`
-        } text-[160px] font-['Inter'] font-bold m-3`}
+        } text-[160px] font-['Inter'] font-bold m-3 w-[5ch] overflow-hidden leading-none`}
       >
         {formatTime(timer)}
       </div>
