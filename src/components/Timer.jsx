@@ -108,7 +108,7 @@ function Timer({ darkMode }) {
         </button>
         <button
           onClick={() => {
-            reset();
+            reset(active);
             setIsRunning(null);
           }}
           className={`flex items-center justify-center font-['Inter'] font-medium px-6 py-3 rounded-lg shadow-sm transition-all duration-300 ${

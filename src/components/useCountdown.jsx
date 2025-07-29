@@ -84,8 +84,11 @@ export function useCountdown(initialValue = 1500) {
     dispatch({ type: "pause" });
   };
 
-  const reset = () => {
-    dispatch({ type: "reset", payload: initialValue });
+  const reset = (active) => {
+    if (active === "Pomodoro") dispatch({ type: "reset", payload: 1500 });
+    else if (active === "Short Break")
+      dispatch({ type: "reset", payload: 300 });
+    else dispatch({ type: "reset", payload: 600 });
   };
 
   const breakTime = () => {
